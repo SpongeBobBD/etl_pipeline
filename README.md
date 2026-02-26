@@ -3,11 +3,10 @@
 A modular ETL framework for pulling, cleaning, transforming, and storing financial time series data. Each module is independently swappable — swap in a different data source, storage backend, or transformation logic without touching the rest.
 
 ## Structure
-
 ```
 etl/
 ├── base.py          # Abstract interfaces
-├── extractors.py    # Data sources (yfinance, CoinGecko)
+├── extractors.py    # Data sources (yfinance)
 ├── cleaners.py      # Data cleaning
 ├── transformers.py  # Feature engineering
 ├── loaders.py       # Storage backends (CSV, SQLite)
@@ -18,16 +17,14 @@ main.py
 ```
 
 ## Quickstart
-
 ```bash
 pip install -r requirements.txt
 python main.py
 ```
 
-This runs two pipelines — AAPL (equity) and BTC (crypto) — and saves results to `output/`.
+This runs two pipelines — AAPL (equity) and BTC-USD (crypto) — and saves results to `output/`.
 
 ## Running Tests
-
 ```bash
 pytest tests/ -v
 ```
@@ -38,18 +35,17 @@ Tests use mocked/synthetic data so no network calls are needed.
 
 **Equities** — any ticker supported by Yahoo Finance (e.g. `AAPL`, `TSLA`, `SPY`)
 
-**Crypto** — BTC, ETH, SOL via CoinGecko free API. Add more in `CryptoExtractor.SYMBOL_MAP`.
+**Crypto** — any crypto ticker supported by Yahoo Finance (e.g. `BTC-USD`, `ETH-USD`, `SOL-USD`)
 
 ## Extending
 
 Swap any module by subclassing the relevant base class:
-
 ```python
 from etl.base import BaseLoader
 
 class PostgresLoader(BaseLoader):
     def load(self, df, name):
-        # your implementation
+        # write df to postgres
         ...
 ```
 
