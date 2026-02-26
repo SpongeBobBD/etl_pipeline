@@ -26,7 +26,7 @@ This runs two pipelines — AAPL (equity) and BTC-USD (crypto) — and saves res
 
 ## Running Tests
 ```bash
-PYTHONPATH=. pytest tests/ -v
+PYTHONPATH=. pytest tests/test_pipeline.py -v 
 ```
 
 Tests use mocked/synthetic data so no network calls are needed.
