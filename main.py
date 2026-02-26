@@ -25,12 +25,12 @@ def run_equity():
 
 def run_crypto():
     pipeline = Pipeline(
-        extractor=CryptoExtractor(),
+        extractor=EquityExtractor(),
         cleaner=FinancialCleaner(),
         transformer=CryptoTransformer(),
         loader=CSVLoader("output"),
     )
-    df = pipeline.run("BTC", START, END)
+    df = pipeline.run("BTC-USD", START, END)
     print(df.tail())
 
 

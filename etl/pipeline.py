@@ -1,3 +1,4 @@
+from typing import Optional
 from .base import BaseExtractor, BaseCleaner, BaseTransformer, BaseLoader
 import pandas as pd
 
@@ -15,7 +16,7 @@ class Pipeline:
         self.transformer = transformer
         self.loader = loader
 
-    def run(self, symbol: str, start: str, end: str, table_name: str | None = None) -> pd.DataFrame:
+    def run(self, symbol: str, start: str, end: str, table_name: Optional[str] = None) -> pd.DataFrame:
         name = table_name or symbol.lower()
         print(f"[{name}] extracting...")
         raw = self.extractor.extract(symbol, start, end)
